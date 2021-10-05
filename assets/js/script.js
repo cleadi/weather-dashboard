@@ -17,13 +17,14 @@ var fiveDayUv = $("#five-day-uv");
 var apiKey = "bccdc8b00b9907f0babdf04baa3111c4";
 var queryUrl;
 var queryUrl2;
-var cityName = "";
+var cityName = $(".form-control"); // this is the issue with the getCityData API call, when I sub this variable with Minneapolis, there's no (API URL) 400 Bad Request error
+// var cityName = "";
 var lat = "";
 var lon = "";
 // var data;
 
 var searchButton = $("#search-button");
-var inputText = $("#input-text")[0];
+var inputText = $(".form-control");
 
 searchButton.click(function(event) {
   event.preventDefault();
@@ -35,43 +36,43 @@ searchButton.click(function(event) {
 
 // }
 
+
 function getCityData(cityName) {
+  console.log(cityName)
   queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
   // console.log(queryUrl);
-  fetch(queryUrl)
+  fetch(queryUrl) // error, GET (API URL) 400 Bad Request
     .then(function (response) {
-      return Response.json();
+      return response.json();
     })
     .then(function (data) {
-      long = data.coords.longitude;
-      lat = data.coords.latitude;
+      console.log(data)
+      lon = data.coord.lon; // Uncaught (in promise) TypeError: Cannot read properties of undefined
+      lat = data.coord.lat;
+      getLatLong();
      })
+     // .catch?? do I need a var which is just for displaying something if the callback fails?
 };
 
-// getCityData();
-// console.log(getCityData);
+// .catch example from MDN -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+
+getCityData("Minneapolis");
+// console.log(JSON.stringify(getCityData)); // logs undefined
 
 function getLatLong(getCityData) {
   queryUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
+  console.log(lat)
+  console.log(lon)
   fetch(queryUrl2)
     .then(function (response) {
-      return Response.json();
+      return response.json();
     })
     .then(function (data) {
-      lon = data.coords.longitude;
-      lat = data.coords.latitude;
+      console.log(data)
+      lon = data.lon; // Uncaught (in promise) TypeError: Cannot read properties of undefined...
+      lat = data.lat;
     })
 };
 
-getLatLong();
-console.log(getLatLong);
 
-
-// Gary says (on 09/29/21) the below will be needed for fetching data from an API
-// fetch(queryUrl)
-//   .then(function (response) {
-//     return Response.json();
-//   })
-//   .then(function (data) {
-//     //...
-//   });
+// console.log(JSON.stringify(getLatLong)); // logs undefined
