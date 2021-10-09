@@ -18,27 +18,32 @@
 
   <main>
 
+    <!-- main container for whole page -->
     <div class="container-fluid row col-12">
-
+      
+      <!-- main search area on left side -->
       <div class="col-2 left">
         <div class="form-group">
-          <h3>Search for a City:</h3>
-          <input type="text" class="form-control" placeholder="Enter city">
+          <h3 id="main-city-box">Search for a City:</h3>
+          <input id="input-city" type="text" class="form-control" placeholder="Enter city">
           <button id="search-button">Search</button>
         </div>
       </div>
-    
+      <!-- main search area on left side -->
+
+
+      <!-- middle/main result area -->
       <div class="col-10 right">
-        <!-- Searched city area -- main/hero? area -->
         <div class="col-12 test">
-          <!-- This "Searched City Here text below needs to change -- use an append method?" -->
-          <h2 id="main-city-box">Searched City Here</h2> 
-          <p>Temp:</p>
-          <p>Wind:</p>
-          <p>Humidity:</p>
-          <p>UV Index:</p>
+          <!-- use an append method?" -->
+          <h2 id="main-city-box">Searched City Here</h2>
+          <p id="main-city-temp">Temp:</p>
+          <p id="main-city-wind">Wind:</p>
+          <p id="main-city-hum">Humidity:</p>
+          <p id="main-city-uv">UV Index:</p>
         </div>
-        <!-- what is the correct class below here? -->
+      
+        <!-- cards -->
         <div class="text">
           <h3>5-Day Forecast</h3>
           <div class="card-deck container-fluid row">
@@ -89,10 +94,13 @@
             </div>
           </div>
         </div>
-
+        <!-- cards -->
+      
       </div>
+      <!-- middle/main result area -->
     
     </div>
+    <!-- main container for whole page -->
       
   </main>
 
