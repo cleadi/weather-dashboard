@@ -1,7 +1,5 @@
-// Need to pull in data to getCityData and getLatLong functions
 // Need to populate ids listed below with the related data and show on web page
 // Need to save recent searches to local storage and show underneath the search bar on left side of web page
-
 
 var mainCityBox = $("#main-city-box");
 var mainCityDate = $("#main-city-date");
@@ -26,6 +24,10 @@ var lon = "";
 var searchButton = $("#search-button");
 var inputText = $("#input-city");
 
+function populateWeather() {
+  //... STOPPED HERE
+}
+
 function getCityData(cityName) {
   var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
   fetch(queryUrl)
@@ -36,36 +38,32 @@ function getCityData(cityName) {
       lon = data.coord.lon;
       lat = data.coord.lat;
       console.log(data);
-      getLatLong();
+      getLatLong(data); // shows the JSON object in the console log
     })
 };
 
-function getLatLong(getCityData) {
+function getLatLong() {
   var queryUrl2 = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey;
   fetch(queryUrl2)
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) { // I think this needs different data... 
+    .then(function (data) { // I think this needs different data...
       lon = data.lon; //  <-- not lat
       lat = data.lat; // and lon?
     })
 };
 
-getCityData();
-
-// tested & functional
 searchButton.click(function (event) {
   event.preventDefault();
-  cityName = inputText.val;
+  cityName = inputText.val();
   getCityData(cityName);
 });
 
-// tested & functional
 $("#input-city").on("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
-    cityName = inputText.val;
+    cityName = inputText.val();
     getCityData(cityName);
   }
 });
