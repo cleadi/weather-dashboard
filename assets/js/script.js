@@ -24,8 +24,9 @@ var lon = "";
 var searchButton = $("#search-button");
 var inputText = $("#input-city");
 
-function populateWeather() {
+function populateWeather(data) {
   //... STOPPED HERE
+  // build logic to write to page here
 }
 
 function getCityData(cityName) {
@@ -38,7 +39,7 @@ function getCityData(cityName) {
       lon = data.coord.lon;
       lat = data.coord.lat;
       console.log(data);
-      getLatLong(data); // shows the JSON object in the console log
+      getLatLong(data);
     })
 };
 
@@ -48,9 +49,8 @@ function getLatLong() {
     .then(function (response) {
       return response.json();
     })
-    .then(function (data) { // I think this needs different data...
-      lon = data.lon; //  <-- not lat
-      lat = data.lat; // and lon?
+    .then(function (data) {
+      populateWeather(data); // pass this into the function above
     })
 };
 
